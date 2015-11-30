@@ -276,7 +276,16 @@ if ( !function_exists( 'do_issuem_archives' ) ) {
 	function do_issuem_archives( $atts ) {
 		
 		$issuem_settings = get_issuem_settings();
-		
+
+		/**
+		 * @var $orderby
+		 * @var $order
+		 * @var $limit
+		 * @var $pdf_title
+		 * @var $default_image
+		 * @var array $args
+		 * @var $hide_latest
+		 */
 		$defaults = array(
 							'orderby' 		=> 'issue_order',
 							'order'			=> 'DESC',
@@ -284,7 +293,8 @@ if ( !function_exists( 'do_issuem_archives' ) ) {
 							'pdf_title'		=> $issuem_settings['pdf_title'],
 							'default_image'	=> $issuem_settings['default_issue_image'],
 							'args'			=> array( 'hide_empty' => 0 ),
-						);
+		 	                'hide_latest'   => 0 );
+
 		extract( shortcode_atts( $defaults, $atts ) );
 		
 		if ( is_string( $args ) ) {
@@ -330,11 +340,17 @@ if ( !function_exists( 'do_issuem_archives' ) ) {
 		if ( 'issue_order' == $orderby && !empty( $archives_no_issue_order ) )
 			$archives = array_merge( $archives_no_issue_order, $archives );
 		
-		if ( "DESC" == $order )
+		if ( "DESC" == $order ) {
 			krsort( $archives );
-		else
+			if ( $hide_latest && 'issue_order' == $orderby ) {
+				array_pop( $archives );
+			}
+		} else {
 			ksort( $archives );
-			
+			if ( $hide_latest && 'issue_order' == $orderby ) {
+				array_shift( $archives );
+			}
+		}
 		$archive_count = count( $archives ) - 1; //we want zero based
 		
 		$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
