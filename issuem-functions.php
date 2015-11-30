@@ -439,8 +439,11 @@ if ( !function_exists( 'issuem_replacements_args' ) ) {
 
 			$author_name = get_issuem_author_name( $post );
 			
-			$byline = sprintf( __( 'By %s', 'issuem' ), apply_filters( 'issuem_author_name', $author_name, $post->ID ) );
-				
+			if (strlen(trim($author_name)) > 0)
+    			$byline = sprintf( __( 'by %s', 'issuem' ), apply_filters( 'issuem_author_name', $author_name, $post->ID ) );
+			else
+				$byline='';
+			
 			$string = preg_replace( '/%BYLINE%/i', $byline, $string );	
 					
 		}
