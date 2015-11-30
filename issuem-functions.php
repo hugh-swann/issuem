@@ -302,7 +302,10 @@ if ( !function_exists( 'issuem_replacements_args' ) ) {
 			$cats = 'issuem_issue_categories';
 			
 		}
-		
+
+/* HAS added for Easst */
+		$string = str_ireplace( '%SECTION%', get_article_section($post->ID), $string );
+
 		$string = str_ireplace( '%TITLE%', get_the_title(), $string );
 		$string = str_ireplace( '%URL%', apply_filters( 'issuem_article_url', get_permalink( $post->ID ), $post->ID ), $string );
 		
@@ -836,3 +839,17 @@ if ( !function_exists( 'get_issuem_article_excerpt' ) ) {
 	}
 
 }
+
+/*
+ * HAS added for Easst, the section title is returned for articles that are the first in a section.
+ */
+if ( !function_exists( 'get_article_section' ) ) {
+	function get_article_section($articleID) {
+		$sectionTitle = get_post_meta( $articleID, 'Start Section', true );
+		if ($sectionTitle != '') {
+			$sectionTitle = '<div class="issue-section">' . $sectionTitle . '</div>';
+		}
+		return $sectionTitle;
+	}
+}
+
