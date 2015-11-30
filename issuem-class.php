@@ -1004,7 +1004,7 @@ if ( ! class_exists( 'IssueM' ) ) {
 
                     <hr>
 
-                    <p><strong>IssueM <?php _e( 'Featured Thumbnails:', 'issuem' ); ?></strong> <code style="font-size: 1.2em; background: #ffffe0;">[issuem_featured_thumbnails]</code></code>
+                    <p><strong>IssueM <?php _e( 'Featured Thumbnails:', 'issuem' ); ?></strong> <code style="font-size: 1.2em; background: #ffffe0;">[issuem_featured_thumbnails]</code></p>
 
                     
                                     
