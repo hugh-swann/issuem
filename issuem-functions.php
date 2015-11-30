@@ -388,8 +388,13 @@ if ( !function_exists( 'issuem_replacements_args' ) ) {
 		
 		if ( preg_match( '/%EXCERPT\[?(\d*)\]?%/i', $string, $matches ) ) {
 			
+			if ( !empty( $matches[1] ) )
+				$excerpt_length = $matches[1];
+			else
+				$excerpt_length = 0;
+
 			if ( empty( $post->post_excerpt ) )
-				$excerpt = get_the_content();
+				$excerpt = ($excerpt_length === 0) ? '' : get_the_content();//HAS CHANGED
 			else
 				$excerpt = $post->post_excerpt;
 			
@@ -397,14 +402,12 @@ if ( !function_exists( 'issuem_replacements_args' ) ) {
 			$excerpt = apply_filters( 'the_content', $excerpt );
 			$excerpt = str_replace( ']]>', ']]&gt;', $excerpt );
 			
-			if ( !empty( $matches[1] ) )
-				$excerpt_length = $matches[1];
-			else
-				$excerpt_length = apply_filters('excerpt_length', 55);
-					
-			$excerpt_more = apply_filters('excerpt_more', ' ' . '[...]');
-			$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
-				
+
+			if ($excerpt_length !== 0 && empty( $post->post_excerpt ) ) {
+				$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[...]' );
+				$excerpt      = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
+			}
+
 			$string = preg_replace( '/%EXCERPT\[?(\d*)\]?%/i', $excerpt, $string );	
 					
 		}
