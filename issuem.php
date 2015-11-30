@@ -7,8 +7,7 @@
  
 /*
 Plugin Name: IssueM
-Plugin URI: http://issuem.com/
-Description: A feature rich magazine and newspaper issue manager plugin for WordPress.
+Description: issuem plugin for WordPress with modifications for Easst Review.
 Author: zeen101 Development Team
 Version: 2.4.0
 Author URI: http://issuem.com/
