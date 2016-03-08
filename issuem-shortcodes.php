@@ -295,7 +295,7 @@ if ( !function_exists( 'do_issuem_image' ) ) {
 
 		$issue_meta = get_option( 'issuem_issue_' . $issue_data->term_id . '_meta' );
 		if ( ! empty( $issue_meta['cover_image'] ) ) {
-			$cover_image = wp_get_attachment_image( $issue_meta['cover_image'], 'issuem-cover-image' );
+			$cover_image = wp_get_attachment_image( $issue_meta['cover_image'], 'medium' );
 		} else {
 			$cover_image = '<img class="attachment-issuem-cover-image" src="' . $default_image . '" />';
 		}
@@ -385,12 +385,12 @@ if ( !function_exists( 'do_issuem_archives' ) ) {
 		if ( "DESC" == $order ) {
 			krsort( $archives );
 			if ( $hide_latest && 'issue_order' == $orderby ) {
-				array_pop( $archives );
+				array_shift( $archives );
 			}
 		} else {
 			ksort( $archives );
 			if ( $hide_latest && 'issue_order' == $orderby ) {
-				array_shift( $archives );
+				array_pop( $archives );
 			}
 		}
 		$archive_count = count( $archives ) - 1; //we want zero based
@@ -456,7 +456,7 @@ if ( !function_exists( 'do_issuem_archives' ) ) {
 			else
 				$image_line = '<img src="' . $default_image . '" />';
 
-			$results .= '<p><a class="featured_archives_cover" style="width: ' . apply_filters( 'issuem-cover-image-width', $issuem_settings['cover_image_width'] ) . 'px; height: ' . apply_filters( 'issuem-cover-image-height', $issuem_settings['cover_image_height'] ) . 'px;" href="' . $issue_url . '">' . $image_line . '</a>';
+			$results .= '<p><a class="featured_archives_cover" style="display:inline-block; width: ' . apply_filters( 'issuem-cover-image-width', $issuem_settings['cover_image_width'] ) . 'px; height: ' . apply_filters( 'issuem-cover-image-height', $issuem_settings['cover_image_height'] ) . 'px;" href="' . $issue_url . '">' . $image_line . '</a>';
 			$results .= '<br /><a href="' . esc_url( $issue_url ) . '">' . $issue_array[0]->name . '</a>';
 			$results .= '<br />' . $pdf_line;
 

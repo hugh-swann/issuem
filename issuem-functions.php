@@ -191,22 +191,19 @@ if ( !function_exists( 'get_active_issuem_issue' ) ) {
 	function get_active_issuem_issue() {
 	
 		$issue_slug = false;
+		$requestedIssue = false;
 		if ( !empty( $_GET['issue'] ) ) {
-			$issue = get_term_by( 'slug', $_GET['issue'], 'issuem_issue' );
+			$requestedIssue = $_GET['issue'];
+		} elseif ( !empty( $_COOKIE['issuem_issue'] ) ) {
+			$requestedIssue = $_COOKIE['issue'];
+		}
+		if ($requestedIssue) {
+			$issue = get_term_by( 'slug', $requestedIssue, 'issuem_issue' );
 			if ( !empty ( $issue ) ) {
 				$issue_meta = get_option( 'issuem_issue_' . $issue->term_id . '_meta' );
 				if ( !empty( $issue_meta ) && !empty( $issue_meta['issue_status'] )
 				     && ( 'Live' === $issue_meta['issue_status'] || current_user_can( apply_filters( 'see_issuem_draft_issues', 'manage_issues' ) ) ) ) {
-					$issue_slug = $_GET['issue'];
-				}
-			}
-		} elseif ( !empty( $_COOKIE['issuem_issue'] ) ) {
-			$issue = get_term_by( 'slug', $_COOKIE['issuem_issue'], 'issuem_issue' );
-			if ( !empty ( $issue ) ) {
-				$issue_meta = get_option( 'issuem_issue_' . $issue->term_id . '_meta' );
-				if ( !empty( $issue_meta ) && !empty( $issue_meta['issue_status'] ) 
-					&& ( 'Live' === $issue_meta['issue_status'] || current_user_can( apply_filters( 'see_issuem_draft_issues', 'manage_issues' ) ) ) ) {
-					$issue_slug = $_COOKIE['issuem_issue'];
+					$issue_slug = $issue->slug;
 				}
 			}
 		}
