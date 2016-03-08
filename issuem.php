@@ -9,7 +9,7 @@
 Plugin Name: IssueM
 Description: issuem plugin for WordPress with modifications for Easst Review.
 Author: zeen101 Development Team
-Version: 2.4.0
+Version: 2.5.0
 Author URI: http://issuem.com/
 Tags: 
 */
@@ -23,7 +23,7 @@ if ( !defined( 'ZEEN101_STORE_URL' ) )
 	define( 'ZEEN101_STORE_URL', 'http://zeen101.com' );
 	
 define( 'ISSUEM_SLUG', 			'issuem' );
-define( 'ISSUEM_VERSION', 		'2.4.0' );
+define( 'ISSUEM_VERSION', 		'2.5.0' );
 define( 'ISSUEM_DB_VERSION', 	'1.0.0' );
 define( 'ISSUEM_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'ISSUEM_PATH', 			plugin_dir_path( __FILE__ ) );

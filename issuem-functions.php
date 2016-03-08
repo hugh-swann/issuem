@@ -212,7 +212,7 @@ if ( !function_exists( 'get_active_issuem_issue' ) ) {
 			$issue_slug = get_issuem_issue_slug();
 		}
 		
-		return $issue_slug;
+		return apply_filters( 'issuem_active_issue_slug', $issue_slug );
 	}
 
 }
